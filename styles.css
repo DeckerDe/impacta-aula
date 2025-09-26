@@ -36,7 +36,7 @@ body {
 
 /* Esfera laranja */
 .sphere.orange {
-  background: #ff6f00;
+  background: green;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 111, 0, 0.5);
 }
 
