@@ -5,12 +5,12 @@ on: push
 jobs:
   ola:
     runs-on: ubuntu-latest
-    environment:
-      name: desenvolvimento
+    env:
+      MINHA_OUTRA_VAR: "outra coisa"
     steps:
       - name: Dizer ola
         run: echo " Olá Impacta a minha variável do repositório é ${{ vars.MINHA_VAR }}"
 
-      - name: Usar variável de ambiente
-        run: echo "Olá, ${{ env.MINHA_VAR_DE_AMBIENTE }}"
+      - name: Dizer outra coisa
+        run: echo "Agora estou $MINHA_OUTRA_VAR"
   
