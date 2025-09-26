@@ -3,8 +3,11 @@ name: Olá Mundo
 on: push
 
 jobs:
-  ola:
+  ola_devl:
     runs-on: ubuntu-latest
+    environment:
+      name: devl
+
     env:
       MINHA_OUTRA_VAR: "outra coisa"
     steps:
@@ -17,8 +20,26 @@ jobs:
       - name: Dizer um segredo
         run: echo "O meu segredo é ${{secrets.MEU_SEGREDO}}"
 
-      - name: Dizer um segredo por meio de uma variável de ambiente
-        env:
-          SEGREDO: ${{secrets.MEU_SEGREDO}}
-        run: echo "O meu segredo é $SEGREDO"
+      - name: Exportar nome do ambiente
+        run: echo "Estou no ${{vars.NOME_DO_AMBIENTE}}" >> $GITHUB_STEP_SUMMARY
+
+  
+  ola_prod:
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+    env:
+      MINHA_OUTRA_VAR: "outra coisa"
+    steps:
+      - name: Dizer ola
+        run: echo " Olá Impacta a minha variável do repositório é ${{ vars.MINHA_VAR }}"
+
+      - name: Dizer outra coisa
+        run: echo "Agora estou $MINHA_OUTRA_VAR"
+
+      - name: Dizer um segredo
+        run: echo "O meu segredo é ${{secrets.MEU_SEGREDO}}"
+
+      - name: Exportar nome do ambiente
+        run: echo "Estou no ${{vars.NOME_DO_AMBIENTE}}" >> $GITHUB_STEP_SUMMARY
   
