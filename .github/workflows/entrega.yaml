@@ -5,7 +5,7 @@ on: [ push, workflow_dispatch ]
 jobs:
   ola_devl:
     runs-on: ubuntu-latest
-    
+
     environment:
       name: devl
 
@@ -27,6 +27,7 @@ jobs:
   
   ola_prod:
     runs-on: ubuntu-latest
+    if: github.ref = 'refs/heads/main'
     environment:
       name: prod
     env:
