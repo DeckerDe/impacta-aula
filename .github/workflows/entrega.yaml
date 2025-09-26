@@ -1,0 +1,10 @@
+name: Olá Mundo
+
+on: push
+
+jobs:
+  ola:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dizer ola
+        run: echo " Olá Impacta "
