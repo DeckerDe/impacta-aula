@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #1a1a1a;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Container das esferas */
+.container {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+
+/* Esferas */
+.sphere {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 8px solid #1a1a1a;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+/* Esfera verde */
+.sphere.green {
+  background: #2e7d32;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8), 0 0 30px rgba(46, 125, 50, 0.5);
+}
+
+/* Esfera laranja */
+.sphere.orange {
+  background: #ff6f00;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 111, 0, 0.5);
+}
+
+/* Esfera azul */
+.sphere.blue {
+  background: #1976d2;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8), 0 0 30px rgba(25, 118, 210, 0.5);
+}
