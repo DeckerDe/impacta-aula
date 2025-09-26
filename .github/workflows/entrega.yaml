@@ -13,4 +13,12 @@ jobs:
 
       - name: Dizer outra coisa
         run: echo "Agora estou $MINHA_OUTRA_VAR"
+
+      - name: Dizer um segredo
+        run: echo "O meu segredo é ${{secrets.MEU_SEGREDO}}"
+
+      - name: Dizer um segredo por meio de uma variável de ambiente
+        env:
+          SEGREDO: ${{secrets.MEU_SEGREDO}}
+        run: echo "O meu segredo é $SEGREDO"
   
