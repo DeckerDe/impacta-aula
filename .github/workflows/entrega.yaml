@@ -7,4 +7,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Dizer ola
-        run: echo " Olá Impacta "
+        run: echo " Olá Impacta a minha variável do repositório é ${{ vars.MINHA_VAR }}"
