@@ -1,6 +1,6 @@
 name: Olá Mundo
 
-on: push
+on: [ push, workflow_dispatch ]
 
 jobs:
   ola_devl:
