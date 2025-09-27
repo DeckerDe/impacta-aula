@@ -3,6 +3,7 @@ name: Deploy da nossa aplicação na AWS
 on: [ push ]
 
 jobs:
+  
   entrega:
     runs-on: ubuntu-latest
 
