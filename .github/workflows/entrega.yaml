@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Dizer ola
         id: dizer_ola
-        run: echo " VAR_INFO=importante" >> $GITHUB_OUTPUT
+        run: echo "VAR_INFO=importante" >> $GITHUB_OUTPUT
 
       - name: Dizer um segredo
         run: echo "a var diz ${{steps.dizer_ola.outputs.VAR_INFO}}"
