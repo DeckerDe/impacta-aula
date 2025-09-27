@@ -3,6 +3,32 @@ name: Olá Mundo
 on: [ push, workflow_dispatch ]
 
 jobs:
+  preparar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Copy to build directory
+        run: |
+          mkdir -p build
+          cp -r src/lambda build/
+
+      - name: Configurar zip
+        run: sudo apt-get install zip -y
+
+      - name: Comprimir arquivos
+        working-directory: build
+        run: |
+          zip -r impacta.zip *
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: impacta-lambda
+          path: build/impacta.zip
+
   entrega_aws:
     runs-on: ubuntu-latest
 
@@ -12,6 +38,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: impacta-lambda
+          path: build/impacta.zip
 
       - name: Configurar Credenciais AWS
         uses: aws-actions/configure-aws-credentials@v2
