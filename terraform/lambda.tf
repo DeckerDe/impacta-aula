@@ -36,7 +36,7 @@ resource "aws_lambda_function" "lambda_app" {
   s3_bucket        = aws_s3_bucket.bucket_impacta.id
   s3_key           = aws_s3_object.objeto_balde_app.key
   function_name    = "impacta-func-app"
-  role             = aws_iam_role.lambda.arn
+  role             = aws_iam_role.role_de_exec.arn
   description      = "App exemplo para a aula de GHA"
   handler          = "index.default"
   timeout          = 30
