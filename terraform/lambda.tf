@@ -23,7 +23,7 @@ resource "aws_iam_role" "role_de_exec" {
 
 resource "aws_s3_object" "objeto_balde_app" {
   key    = "build/impacta.zip"
-  bucket = aws_s3_bucket.bucket_impacta
+  bucket = aws_s3_bucket.bucket_impacta.id
   source = local.fonte_lambda
   etag   = filebase64sha256(local.fonte_lambda)
 }
