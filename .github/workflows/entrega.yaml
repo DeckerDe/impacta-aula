@@ -3,15 +3,22 @@ name: Olá Mundo
 on: [ push, workflow_dispatch ]
 
 jobs:
-  ola:
+  config:
     runs-on: ubuntu-latest
+    
+    outputs:
+      info: ${{steps.add_info.outputs.VAR_INFO}}
 
-    env:
-      MINHA_OUTRA_VAR: "outra coisa"
     steps:
-      - name: Dizer ola
-        id: dizer_ola
-        run: echo "VAR_INFO=importante" >> $GITHUB_OUTPUT
+      - name: Adicionar info
+        id: add_info
+        run: echo "VAR_INFO=impacta" >> $GITHUB_OUTPUT
 
-      - name: Dizer um segredo
-        run: echo "a var diz ${{steps.dizer_ola.outputs.VAR_INFO}}"
+  relat:
+    run-on: ubuntu-latest
+
+    needs: config
+
+    steps:
+      - name: Usar info
+        run: echo "A info diz ${{needs.config.outputs.info}}"
