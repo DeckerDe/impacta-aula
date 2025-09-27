@@ -13,7 +13,7 @@ jobs:
       - name: Copy to build directory
         run: |
           mkdir -p build
-          cp -r src/ build/
+          cp -r src/* build/
 
       - name: Configurar zip
         run: sudo apt-get install zip -y
