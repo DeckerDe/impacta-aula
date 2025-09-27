@@ -5,6 +5,9 @@ on: [ push ]
 jobs:
 
   preparar:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: sincronizar repo
       uses: actions/checkout@v4
 
