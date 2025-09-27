@@ -1,10 +1,16 @@
-import https from "https";
-let url = "https://aws.amazon.com/";
+import fs from "fs";
 
-export const handler = (event, context, callback) => {
-  https.get(url, (res) => {
-    callback(null, res.statusCode);
-  }).on("error", (e) => {
-    callback(Error(e));
-  });
+const html = fs.readFileSync("src/index.html", "utf8");
+
+const handler = (event, context, callback) => {
+  const response = {
+    statusCode: 200,
+    headers: {
+      "Content-Type": "text/html",
+    },
+    body: html,
+  };
+  callback(null, response);
 };
+
+export default handler;

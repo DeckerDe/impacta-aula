@@ -47,3 +47,12 @@ resource "aws_lambda_function" "lambda_app" {
 resource "aws_cloudwatch_log_group" "lambda_app_log" {
   name = "/aws/lambda/${aws_lambda_function.lambda_app.function_name}"
 }
+
+resource "aws_lambda_function_url" "example" {
+  function_name      = aws_lambda_function.lambda_app.function_name
+  authorization_type = "NONE"
+}
+
+output "name" {
+  value = aws_lambda_function.lambda_app.function_name
+}
