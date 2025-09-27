@@ -47,6 +47,12 @@ resource "aws_lambda_function" "lambda_app" {
   timeout          = 30
   memory_size      = 128
   runtime          = "nodejs22.x"
+
+  environment {
+    variables = {
+      MENSAGEM_PERSONALIZADA = var.mensagem_personalizada
+    }
+  }
 }
 
 resource "aws_cloudwatch_log_group" "lambda_app_log" {
@@ -60,4 +66,10 @@ resource "aws_lambda_function_url" "url_app" {
 
 output "name" {
   value = aws_lambda_function_url.url_app.function_url
+}
+
+variable "mensagem_personalizada" {
+  description = "Mensagem personalizada do cabeçalho"
+  type        = string
+  default     = "Ambiente de Desenvolvimento"
 }

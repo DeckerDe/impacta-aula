@@ -72,5 +72,7 @@ jobs:
 
       - name: Aplicar Terraform
         working-directory: terraform
+        env:
+          TF_VAR_mensagem_personalizada: ${{ vars.NOME_DO_AMBIENTE }}
         run: terraform apply -auto-approve tfplan
   
