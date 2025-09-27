@@ -35,6 +35,7 @@ jobs:
    
   
   entrega:
+    needs: preparar
     runs-on: ubuntu-latest
 
     environment:
