@@ -15,7 +15,7 @@ jobs:
         run: echo "VAR_INFO=impacta" >> $GITHUB_OUTPUT
 
   relat:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     needs: config
 
