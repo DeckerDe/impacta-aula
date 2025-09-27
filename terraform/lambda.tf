@@ -16,6 +16,11 @@ data "aws_iam_policy_document" "func_de_exec_doc" {
   }
 }
 
+resource "aws_iam_role_policy_attachment" "lambda" {
+  role       = aws_iam_role.role_de_exec.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
 resource "aws_iam_role" "role_de_exec" {
   name               = "func_de_exec"
   assume_role_policy = data.aws_iam_policy_document.func_de_exec_doc.json

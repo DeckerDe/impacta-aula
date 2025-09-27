@@ -1,6 +1,6 @@
 import fs from "fs";
 
-const html = fs.readFileSync("src/index.html", "utf8");
+const html = fs.readFileSync("./index.html", "utf8");
 
 const handler = (event, context, callback) => {
   const response = {
