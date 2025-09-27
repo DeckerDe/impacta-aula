@@ -13,7 +13,7 @@ jobs:
       - name: Copy to build directory
         run: |
           mkdir -p build
-          cp -r src/lambda build/
+          cp -r src/ build/
 
       - name: Configurar zip
         run: sudo apt-get install zip -y
@@ -30,6 +30,7 @@ jobs:
           path: build/impacta.zip
 
   entrega_aws:
+    needs: preparar
     runs-on: ubuntu-latest
 
     environment:
