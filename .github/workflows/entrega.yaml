@@ -1,24 +1,39 @@
-name: Olá Mundo
+name: Deploy da nossa aplicação na AWS
 
-on: [ push, workflow_dispatch ]
+on: [ push ]
 
 jobs:
-  config:
-    runs-on: ubuntu-latest
-    
-    outputs:
-      info: ${{steps.add_info.outputs.VAR_INFO}}
-
-    steps:
-      - name: Adicionar info
-        id: add_info
-        run: echo "VAR_INFO=impacta" >> $GITHUB_OUTPUT
-
-  relat:
+  entrega:
     runs-on: ubuntu-latest
 
-    needs: config
-
     steps:
-      - name: Usar info
-        run: echo "A info diz ${{needs.config.outputs.info}}"
+      - name: sincronizar repo
+        uses: actions/checkout@v4
+
+      - name: Instalar Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+         terraform_version: "1.5.6"
+
+      - name: Autenticar na AWS
+        uses: aws-actions/configure-aws-credentials@v5.0.0
+        with:
+          aws-access-key-id: ${{ secrets.ID_CHAVE_AWS }}
+          aws-secret-access-key: ${{ secrets.SEGREDO_CHAVE_AWS}}
+          aws-region: us-east-1
+
+      - name: Inicializar Terraform
+        working-directory: terraform
+        run: terraform init -input=false
+
+      - name: Validar Terraform
+        working-directory: terraform
+        run: terraform validate
+
+      - name: Planejamento Terraform
+        working-directory: terraform
+        run: terraform plan -out=tfplan
+
+      - name: Aplicar Terraform
+        working-directory: terraform
+        run: terraform apply -auto-approve tfplan
