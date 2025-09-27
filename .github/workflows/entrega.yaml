@@ -3,13 +3,49 @@ name: Deploy da nossa aplicação na AWS
 on: [ push ]
 
 jobs:
+
+  preparar:
+    - name: sincronizar repo
+      uses: actions/checkout@v4
+
+    - name: Copiar para o diretorio
+      run: |
+        mkdir -p build
+        cp -r src/* build/
+
+    - name: Mostrar arquivos
+      working-directory: build
+      run: ls -la
+
+    - name: Configurar Zip
+      run: sudo apt-get install zip -y
+
+    - name: Comprimir arquivos
+      working-directory: build
+      run: zip -r impacta.zip *
+
+    - name: Upload dos artefatos
+      uses: actions/upload-artifact@v4
+      with:
+        name: impacta-lambda
+        path: build/impacta.zip
+   
   
   entrega:
     runs-on: ubuntu-latest
 
+    environment:
+      name: devl
+
     steps:
       - name: sincronizar repo
         uses: actions/checkout@v4
+
+      - name: Baixar artefatos
+        uses: actions/download-artifact@v4
+        with: 
+          name: impacta-lambda
+          path: build
 
       - name: Instalar Terraform
         uses: hashicorp/setup-terraform@v3
@@ -37,4 +73,6 @@ jobs:
 
       - name: Aplicar Terraform
         working-directory: terraform
+        env:
+          TF_VAR_mensagem_personalizada: ${{vars.NOME_DO_AMBIENTE}}
         run: terraform apply -auto-approve tfplan
