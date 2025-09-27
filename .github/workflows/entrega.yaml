@@ -3,45 +3,37 @@ name: Olá Mundo
 on: [ push, workflow_dispatch ]
 
 jobs:
-  ola_devl:
+  entrega_aws:
     runs-on: ubuntu-latest
 
     environment:
       name: devl
 
-    env:
-      MINHA_OUTRA_VAR: "outra coisa"
     steps:
-      - name: Dizer ola
-        run: echo " Olá Impacta a minha variável do repositório é ${{ vars.MINHA_VAR }}"
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Dizer outra coisa
-        run: echo "Agora estou $MINHA_OUTRA_VAR"
+      - name: Configurar Credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.ID_CHAVE_AWS }}
+          aws-secret-access-key: ${{ secrets.SEGREDO_CHAVE_AWS }}
+          aws-region: us-east-1
 
-      - name: Dizer um segredo
-        run: echo "O meu segredo é ${{secrets.MEU_SEGREDO}}"
+      - name: Instalar Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.6
 
-      - name: Exportar nome do ambiente
-        run: echo "Estou no ${{vars.NOME_DO_AMBIENTE}}" >> $GITHUB_STEP_SUMMARY
+      - name: Validar Terraform
+        working-directory: terraform
+        run: terraform validate
 
-  
-  ola_prod:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    environment:
-      name: prod
-    env:
-      MINHA_OUTRA_VAR: "outra coisa"
-    steps:
-      - name: Dizer ola
-        run: echo " Olá Impacta a minha variável do repositório é ${{ vars.MINHA_VAR }}"
+      - name: Planejamento Terraform
+        working-directory: terraform
+        run: terraform plan -out=tfplan
 
-      - name: Dizer outra coisa
-        run: echo "Agora estou $MINHA_OUTRA_VAR"
-
-      - name: Dizer um segredo
-        run: echo "O meu segredo é ${{secrets.MEU_SEGREDO}}"
-
-      - name: Exportar nome do ambiente
-        run: echo "Estou no ${{vars.NOME_DO_AMBIENTE}}" >> $GITHUB_STEP_SUMMARY
+      - name: Aplicar Terraform
+        working-directory: terraform
+        run: terraform apply -auto-approve tfplan
   
