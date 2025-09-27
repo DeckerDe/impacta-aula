@@ -2,7 +2,7 @@ import fs from "fs";
 
 const html = fs.readFileSync("./index.html", "utf8");
 
-const handler = (event, context, callback) => {
+const handler = async (event, context, callback) => {
   const response = {
     statusCode: 200,
     headers: {
