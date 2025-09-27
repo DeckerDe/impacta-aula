@@ -44,7 +44,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: impacta-lambda
-          path: build/impacta.zip
+          path: build
 
       - name: Configurar Credenciais AWS
         uses: aws-actions/configure-aws-credentials@v2
