@@ -20,3 +20,8 @@ jobs:
           echo "$WORKFLOW"
           echo "$JOB"
           echo "$STEP"
+
+      - name: Algo n funciona
+        run: | 
+          echo "$STEP"
+          echo "$JOB"
