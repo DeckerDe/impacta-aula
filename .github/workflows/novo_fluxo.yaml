@@ -2,10 +2,21 @@ name: Enviar aplicação para nuvem
 
 on: push
 
+env:
+  WORKFLOW: "Nivel do workflow"
+
 jobs:
   algo:
     runs-on: ubuntu-latest
 
+    env:
+      JOB: "Nivel do job" 
+
     steps:
       - name: Algo importante
-        run: echo "${{vars.MINHA_VAR}}"
+        env: 
+          STEP: "nivel do step"
+        run: | 
+          echo "$WORKFLOW"
+          echo "$JOB"
+          echo "$STEP"
