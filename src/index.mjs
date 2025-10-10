@@ -23,6 +23,11 @@ const handler = async (event, context, callback) => {
     `<style>${css}</style>`
   );
 
+  const algo = 10
+  if(algo == 10){
+    console.log(algo)
+  }
+
   const response = {
     statusCode: 200,
     headers: {
