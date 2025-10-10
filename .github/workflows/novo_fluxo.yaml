@@ -3,16 +3,26 @@ name: Enviar aplicação para nuvem
 on: push
 
 jobs:
-  algo:
+  algo-devl:
     runs-on: ubuntu-latest
+
+    environment:
+      name: devl
 
     steps:
       - name: Algo importante
-        env: 
-          SEGREDO: ${{secrets.CHAVE_DE_ACESSO_AO_SERVIDOR}}
-          NSEGREDO: ${{vars.MINHA_VAR}}
         run: | 
-          echo "A coisa confidencial é ${{ secrets.CHAVE_DE_ACESSO_AO_SERVIDOR }}"
-          echo "Algo que não existe ${{ secrets.CHAVE_DE_ACESSO}}"
-          echo "$SEGREDO"
-          echo "$NSEGREDO"
+          echo "A var geral é ${{ vars.MINHA_VAR }}"
+          echo "A var especifica é ${{ vars.MINHA_VAR_DE_AMBIENTE}}"
+
+  algo-prod:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: prod
+
+    steps:
+      - name: Algo importante
+        run: | 
+          echo "A var geral é ${{ vars.MINHA_VAR }}"
+          echo "A var especifica é ${{ vars.MINHA_VAR_DE_AMBIENTE}}"
