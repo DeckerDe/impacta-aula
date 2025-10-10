@@ -1,28 +1,44 @@
-name: Enviar aplicação para nuvem
 
-on: push
+name: Testes e Cobertura
+
+on: [ push ]
 
 jobs:
-  algo-devl:
-    runs-on: ubuntu-latest
 
-    environment:
-      name: devl
+  testar:
+    runs-on: ubuntu-latest
+    outputs:
+      cobertura: ${{ steps.executar_testes.outputs.cobertura }}
 
     steps:
-      - name: Algo importante
-        run: | 
-          echo "A var geral é ${{ vars.MINHA_VAR }}"
-          echo "A var especifica é ${{ vars.MINHA_VAR_DE_AMBIENTE}}" >> $GITHUB_STEP_SUMMARY
+    - name: sincronizar repo
+      uses: actions/checkout@v4
 
-  algo-prod:
+    - name: configurar node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+    
+    - name: instalar dependências
+      run: npm ci
+
+    - name: executar testes com cobertura
+      id: executar_testes
+      run: |
+        npm test
+
+        COBERTURA=$(node -p "JSON.parse(require('fs').readFileSync('coverage/coverage-summary.json')).total.lines.pct")
+
+        echo "cobertura=${COBERTURA}" >> $GITHUB_OUTPUT
+        echo "Cobertura de código: ${COBERTURA}%"
+
+  resumir_cobertura:
+    name: resumir cobertura
     runs-on: ubuntu-latest
-
-    environment:
-      name: prod
-
+    needs: testar
     steps:
-      - name: Algo importante
-        run: | 
-          echo "A var geral é ${{ vars.MINHA_VAR }}"
-          echo "A var especifica é ${{ vars.MINHA_VAR_DE_AMBIENTE}}" >> $GITHUB_STEP_SUMMARY
+    - name: escrever resumo no job summary
+      run: |
+        echo "## Cobertura de Código" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Cobertura:** ${{ needs.testar.outputs.cobertura }}%" >> $GITHUB_STEP_SUMMARY
