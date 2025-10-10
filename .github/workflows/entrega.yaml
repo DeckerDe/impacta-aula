@@ -1,4 +1,4 @@
-name: Olá Impacta
+name: Olá Mundo
 
 on: [ push, workflow_dispatch ]
 
