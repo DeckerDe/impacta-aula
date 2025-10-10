@@ -24,8 +24,8 @@ jobs:
     - name: executar testes com cobertura
       id: executar_testes
       run: |
-        npm test -- --coverage --coverageReporters=json-summary || true
-        
+        npm test
+
         COBERTURA=$(node -p "JSON.parse(require('fs').readFileSync('coverage/coverage-summary.json')).total.lines.pct")
 
         echo "cobertura=${COBERTURA}" >> $GITHUB_OUTPUT
