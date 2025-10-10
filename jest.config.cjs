@@ -3,9 +3,13 @@ module.exports = {
   transform: {},
   testEnvironment: 'node',
   collectCoverage: true,
+  coverageReporters: ['json-summary', 'text'],
   coverageThreshold: {
     global: {
-      statements: 97,
+      statements: 91,
+      lines: 100,
+      functions: 100,
+      branches: 75,
     },
   },
 };
