@@ -28,7 +28,6 @@ const handler = async (event, context, callback) => {
     },
     body: html,
   };
-  if (typeof callback === 'function') callback(null, response);
   return response;
 };
 
