@@ -8,4 +8,4 @@ jobs:
 
     steps:
       - name: Algo importante
-        run: echo "estou fazendo algo importante"
+        run: echo "${{vars.MINHA_VAR}}"
