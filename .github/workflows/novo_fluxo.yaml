@@ -1,0 +1,11 @@
+name: Enviar aplicação para nuvem
+
+on: push
+
+jobs:
+  algo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Algo importante
+        run: echo "estou fazendo algo importante"
