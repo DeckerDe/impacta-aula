@@ -1,7 +1,12 @@
 import fs from "fs";
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
-const htmlTemplate = fs.readFileSync("impacta.html", "utf8");
-const css = fs.readFileSync("styles.css", "utf8");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const htmlTemplate = fs.readFileSync(join(__dirname, 'impacta.html'), "utf8");
+const css = fs.readFileSync(join(__dirname, 'styles.css'), "utf8");
 
 const handler = async (event, context, callback) => {
   // Pega a variável de ambiente ou usa um valor padrão
@@ -23,7 +28,8 @@ const handler = async (event, context, callback) => {
     },
     body: html,
   };
-  callback(null, response);
+  if (typeof callback === 'function') callback(null, response);
+  return response;
 };
 
 export default handler;
