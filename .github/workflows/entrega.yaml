@@ -22,6 +22,8 @@ jobs:
   ola-novamente:
     runs-on: ubuntu-latest
 
+    needs: ["ola"]
+
     steps:
       - name: Ola Novamente 
         run: echo "Ola Novamente"
