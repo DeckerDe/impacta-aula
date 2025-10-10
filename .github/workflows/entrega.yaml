@@ -1,4 +1,4 @@
-name: Deploy da nossa aplicação na AWS
+name: Testes e Cobertura
 
 on: [ push ]
 
