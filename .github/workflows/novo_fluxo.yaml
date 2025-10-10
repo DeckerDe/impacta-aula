@@ -1,0 +1,28 @@
+name: Enviar aplicação para nuvem
+
+on: push
+
+jobs:
+  algo-devl:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: devl
+
+    steps:
+      - name: Algo importante
+        run: | 
+          echo "A var geral é ${{ vars.MINHA_VAR }}"
+          echo "A var especifica é ${{ vars.MINHA_VAR_DE_AMBIENTE}}" >> $GITHUB_STEP_SUMMARY
+
+  algo-prod:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: prod
+
+    steps:
+      - name: Algo importante
+        run: | 
+          echo "A var geral é ${{ vars.MINHA_VAR }}"
+          echo "A var especifica é ${{ vars.MINHA_VAR_DE_AMBIENTE}}" >> $GITHUB_STEP_SUMMARY
