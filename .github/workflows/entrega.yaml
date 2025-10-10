@@ -9,3 +9,12 @@ jobs:
     steps:
       - name: Dizer ola
         run: echo " Olá Impacta ! "
+
+      - name: Ver arquivos
+        run: ls -la
+
+      - name: Atualizar Repositório
+        uses: actions/checkout@v4
+
+      - name: Ver arquivos
+        run: ls -la
