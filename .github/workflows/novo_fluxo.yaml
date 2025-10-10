@@ -2,21 +2,15 @@ name: Enviar aplicação para nuvem
 
 on: push
 
-env:
-  WORKFLOW: "Nivel do workflow"
-
 jobs:
   algo:
     runs-on: ubuntu-latest
-
-    env:
-      JOB: "Nivel do job" 
 
     steps:
       - name: Algo importante
         env: 
           SEGREDO: ${{secrets.CHAVE_DE_ACESSO_AO_SERVIDOR}}
-          NSEGREDO: ${{secrets.MINHA_VAR}}
+          NSEGREDO: ${{vars.MINHA_VAR}}
         run: | 
           echo "A coisa confidencial é ${{ secrets.CHAVE_DE_ACESSO_AO_SERVIDOR }}"
           echo "Algo que não existe ${{ secrets.CHAVE_DE_ACESSO}}"
